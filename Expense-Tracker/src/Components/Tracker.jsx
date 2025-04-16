@@ -20,6 +20,10 @@ const ExpenseTracker = () => {
     setAmount("");
   };
 
+  const deleteExpense = (id) => {
+    setExpenses(expenses.filter((expense) => expense.id !== id));
+  };
+
   const total = expenses.reduce((sum, expense) => sum + expense.amount, 0);
 
   return (
@@ -49,10 +53,18 @@ const ExpenseTracker = () => {
             {expenses.map((exp) => (
               <li
                 key={exp.id}
-                className="flex justify-between  dark:bg-gray-800 text-black dark:text-white p-3 rounded-lg shadow"
+                className="flex justify-between items-center dark:bg-gray-800 text-black dark:text-white p-3 rounded-lg shadow"
               >
-                <span>{exp.description}</span>
-                <span>Rs {exp.amount.toFixed(2)}</span>
+                <div>
+                  <span>{exp.description}</span>
+                  <span className="ml-4">Rs {exp.amount.toFixed(2)}</span>
+                </div>
+                <Button
+                  className="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded-lg"
+                  onClick={() => deleteExpense(exp.id)}
+                >
+                  Delete
+                </Button>
               </li>
             ))}
           </ul>
